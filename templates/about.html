@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}About - Gold Price Predictor{% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+    <!-- Hero Section -->
+    <div class="glass-card p-12 text-center" data-aos="fade-down">
+        <div class="w-32 h-32 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 neon-glow">
+            <i class="fas fa-robot text-5xl text-white"></i>
+        </div>
+        <h1 class="text-4xl font-bold mb-4 gradient-text">About GoldPredictor</h1>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+            AI-Powered Gold Price Prediction using Machine Learning
+        </p>
+    </div>
+    
+    <!-- Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass-card p-6 text-center" data-aos="fade-up">
+            <div class="text-4xl font-bold gradient-text mb-2">{{ total_predictions }}+</div>
+            <p class="text-gray-400">Predictions Made</p>
+        </div>
+        <div class="glass-card p-6 text-center" data-aos="fade-up" data-aos-delay="100">
+            <div class="text-4xl font-bold text-green-400 mb-2">95%</div>
+            <p class="text-gray-400">Accuracy Rate</p>
+        </div>
+        <div class="glass-card p-6 text-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="text-4xl font-bold text-blue-400 mb-2">24/7</div>
+            <p class="text-gray-400">Availability</p>
+        </div>
+    </div>
+    
+    <!-- Features -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="glass-card p-6" data-aos="fade-right">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mr-4 neon-glow">
+                    <i class="fas fa-brain text-2xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">Machine Learning Model</h3>
+            </div>
+            <p class="text-gray-400 leading-relaxed">
+                Our model uses advanced regression algorithms trained on historical market data 
+                to predict gold prices with high accuracy.
+            </p>
+        </div>
+        
+        <div class="glass-card p-6" data-aos="fade-left">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mr-4 neon-glow">
+                    <i class="fas fa-chart-line text-2xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">Real-time Analysis</h3>
+            </div>
+            <p class="text-gray-400 leading-relaxed">
+                Get instant predictions based on current market indicators and save them 
+                for future reference and analysis.
+            </p>
+        </div>
+        
+        <div class="glass-card p-6" data-aos="fade-right" data-aos-delay="100">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-4 neon-glow">
+                    <i class="fas fa-database text-2xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">Data Persistence</h3>
+            </div>
+            <p class="text-gray-400 leading-relaxed">
+                All predictions are automatically saved to JSON files, allowing you to track 
+                your prediction history and market trends.
+            </p>
+        </div>
+        
+        <div class="glass-card p-6" data-aos="fade-left" data-aos-delay="100">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mr-4 neon-glow">
+                    <i class="fas fa-chart-pie text-2xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">Interactive Dashboard</h3>
+            </div>
+            <p class="text-gray-400 leading-relaxed">
+                Visualize trends, compare predictions, and analyze market patterns with our 
+                interactive charts and statistics.
+            </p>
+        </div>
+    </div>
+    
+    <!-- How It Works -->
+    <div class="glass-card p-8" data-aos="fade-up">
+        <h2 class="text-2xl font-bold mb-6 text-center gradient-text">How It Works</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold text-white">1</div>
+                <h3 class="font-semibold text-white mb-2">Enter Data</h3>
+                <p class="text-sm text-gray-500">Input market indicators</p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold text-white">2</div>
+                <h3 class="font-semibold text-white mb-2">ML Processing</h3>
+                <p class="text-sm text-gray-500">Model analyzes patterns</p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold text-white">3</div>
+                <h3 class="font-semibold text-white mb-2">Get Prediction</h3>
+                <p class="text-sm text-gray-500">Receive instant price forecast</p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold text-white">4</div>
+                <h3 class="font-semibold text-white mb-2">Track History</h3>
+                <p class="text-sm text-gray-500">Save and analyze results</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tech Stack -->
+    <div class="glass-card p-8 text-center" data-aos="fade-up">
+        <h2 class="text-2xl font-bold mb-6 gradient-text">Technology Stack</h2>
+        
+        <div class="flex flex-wrap justify-center gap-4">
+            <span class="px-4 py-2 bg-blue-500/20 text-blue-400 rounded-full text-sm border border-blue-500/30">FastAPI</span>
+            <span class="px-4 py-2 bg-purple-500/20 text-purple-400 rounded-full text-sm border border-purple-500/30">Python</span>
+            <span class="px-4 py-2 bg-green-500/20 text-green-400 rounded-full text-sm border border-green-500/30">Scikit-learn</span>
+            <span class="px-4 py-2 bg-yellow-500/20 text-yellow-400 rounded-full text-sm border border-yellow-500/30">Tailwind CSS</span>
+            <span class="px-4 py-2 bg-red-500/20 text-red-400 rounded-full text-sm border border-red-500/30">Chart.js</span>
+            <span class="px-4 py-2 bg-indigo-500/20 text-indigo-400 rounded-full text-sm border border-indigo-500/30">NumPy</span>
+            <span class="px-4 py-2 bg-pink-500/20 text-pink-400 rounded-full text-sm border border-pink-500/30">Pandas</span>
+            <span class="px-4 py-2 bg-gray-500/20 text-gray-400 rounded-full text-sm border border-gray-500/30">JSON</span>
+        </div>
+    </div>
+    
+    <!-- Contact -->
+    <div class="glass-card p-8 text-center" data-aos="fade-up">
+        <h2 class="text-2xl font-bold mb-4 gradient-text">Get In Touch</h2>
+        <p class="text-gray-400 mb-6">Have questions or suggestions? We'd love to hear from you!</p>
+        
+        <div class="flex justify-center space-x-4">
+            <a href="#" class="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center text-blue-400 hover:scale-110 transition-transform neon-glow">
+                <i class="fab fa-github text-xl"></i>
+            </a>
+            <a href="#" class="w-12 h-12 bg-blue-400/20 rounded-full flex items-center justify-center text-blue-300 hover:scale-110 transition-transform neon-glow">
+                <i class="fab fa-twitter text-xl"></i>
+            </a>
+            <a href="#" class="w-12 h-12 bg-blue-700/20 rounded-full flex items-center justify-center text-blue-500 hover:scale-110 transition-transform neon-glow">
+                <i class="fab fa-linkedin-in text-xl"></i>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

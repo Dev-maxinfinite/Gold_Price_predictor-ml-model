@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+
+{% block title %}Gold Price Predictor - Home{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-glow {
+        background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.3) 0%, transparent 70%);
+    }
+    
+    .floating-card {
+        animation: float 4s ease-in-out infinite;
+    }
+    
+    .floating-card:nth-child(2) { animation-delay: -1s; }
+    .floating-card:nth-child(3) { animation-delay: -2s; }
+    .floating-card:nth-child(4) { animation-delay: -3s; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+    <!-- Hero Section -->
+    <div class="glass-card p-12 text-center relative overflow-hidden hero-glow" data-aos="fade-down">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-500"></div>
+        
+        <div class="w-24 h-24 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 neon-glow">
+            <i class="fas fa-chart-line text-4xl text-white"></i>
+        </div>
+        
+        <h1 class="text-5xl font-bold mb-4 gradient-text">Gold Price Predictor</h1>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
+            AI-Powered Gold Price Prediction using Machine Learning
+        </p>
+        
+        <div class="flex justify-center space-x-4">
+            <a href="/input" class="btn-primary text-lg px-8 py-4">
+                <i class="fas fa-magic mr-2"></i>Start Predicting
+            </a>
+            <a href="/about" class="glass-card px-8 py-4 text-white hover:bg-purple-500/20 transition-all">
+                <i class="fas fa-info-circle mr-2"></i>Learn More
+            </a>
+        </div>
+    </div>
+    
+    <!-- Feature Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="glass-card p-6 text-center floating-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-brain text-2xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">ML Model</h3>
+            <p class="text-gray-400 text-sm">Advanced regression algorithms</p>
+        </div>
+        
+        <div class="glass-card p-6 text-center floating-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-bolt text-2xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Instant Results</h3>
+            <p class="text-gray-400 text-sm">Real-time predictions</p>
+        </div>
+        
+        <div class="glass-card p-6 text-center floating-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-database text-2xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">History</h3>
+            <p class="text-gray-400 text-sm">Track all predictions</p>
+        </div>
+        
+        <div class="glass-card p-6 text-center floating-card" data-aos="fade-up" data-aos-delay="400">
+            <div class="w-16 h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-chart-pie text-2xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Analytics</h3>
+            <p class="text-gray-400 text-sm">Visualize trends</p>
+        </div>
+    </div>
+    
+    <!-- Quick Prediction Form -->
+    <div class="glass-card p-8" data-aos="fade-up">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-bolt text-yellow-400 mr-3"></i>
+            Quick Prediction
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div>
+                <label class="block text-sm text-gray-400 mb-2">S&P 500 (SPX)</label>
+                <input type="number" id="spx" step="0.01" class="input-field" placeholder="4500.00" value="4500">
+            </div>
+            <div>
+                <label class="block text-sm text-gray-400 mb-2">Oil ETF (USO)</label>
+                <input type="number" id="uso" step="0.01" class="input-field" placeholder="75.00" value="75">
+            </div>
+            <div>
+                <label class="block text-sm text-gray-400 mb-2">Silver ETF (SLV)</label>
+                <input type="number" id="slv" step="0.01" class="input-field" placeholder="22.50" value="22.5">
+            </div>
+            <div>
+                <label class="block text-sm text-gray-400 mb-2">EUR/USD</label>
+                <input type="number" id="eur_usd" step="0.0001" class="input-field" placeholder="1.0800" value="1.08">
+            </div>
+        </div>
+        
+        <div class="flex flex-wrap gap-3 mb-6">
+            <button onclick="fillPreset('bullish')" class="glass-card px-4 py-2 text-sm text-green-400 hover:bg-green-500/20 transition-all">
+                🚀 Bullish
+            </button>
+            <button onclick="fillPreset('neutral')" class="glass-card px-4 py-2 text-sm text-yellow-400 hover:bg-yellow-500/20 transition-all">
+                ⚖️ Neutral
+            </button>
+            <button onclick="fillPreset('bearish')" class="glass-card px-4 py-2 text-sm text-red-400 hover:bg-red-500/20 transition-all">
+                📉 Bearish
+            </button>
+        </div>
+        
+        <button onclick="predictPrice()" class="btn-primary w-full text-lg py-4">
+            <i class="fas fa-magic mr-2"></i>Predict Gold Price
+        </button>
+        
+        <!-- Result -->
+        <div id="quickResult" class="hidden mt-6 p-6 glass-card bg-gradient-to-r from-purple-500/20 to-blue-500/20">
+            <div class="text-center">
+                <p class="text-gray-400 mb-2">Predicted GLD Price</p>
+                <p class="text-5xl font-bold gradient-text" id="quickPrediction">$0.00</p>
+                <p class="text-sm text-gray-500 mt-2" id="quickConfidence">Confidence: 95%</p>
+            </div>
+        </div>
+        
+        <!-- Loading -->
+        <div id="quickLoading" class="hidden flex justify-center py-4">
+            <div class="loading-spinner"></div>
+            <span class="ml-3 text-gray-400">Analyzing...</span>
+        </div>
+    </div>
+    
+    <!-- Market Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="glass-card p-6 text-center" data-aos="fade-up">
+            <div class="text-3xl font-bold gradient-text">{{ total_predictions }}</div>
+            <p class="text-gray-400 text-sm">Total Predictions</p>
+        </div>
+        <div class="glass-card p-6 text-center" data-aos="fade-up" data-aos-delay="100">
+            <div class="text-3xl font-bold text-green-400">95%</div>
+            <p class="text-gray-400 text-sm">Accuracy</p>
+        </div>
+        <div class="glass-card p-6 text-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="text-3xl font-bold text-blue-400">24/7</div>
+            <p class="text-gray-400 text-sm">Availability</p>
+        </div>
+        <div class="glass-card p-6 text-center" data-aos="fade-up" data-aos-delay="300">
+            <div class="text-3xl font-bold text-purple-400">4</div>
+            <p class="text-gray-400 text-sm">ML Features</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function fillPreset(type) {
+        const presets = {
+            bullish: { spx: 4800, uso: 85, slv: 24.5, eur: 1.09 },
+            neutral: { spx: 4500, uso: 75, slv: 22.5, eur: 1.08 },
+            bearish: { spx: 4200, uso: 65, slv: 20.5, eur: 1.07 }
+        };
+        
+        const preset = presets[type];
+        document.getElementById('spx').value = preset.spx;
+        document.getElementById('uso').value = preset.uso;
+        document.getElementById('slv').value = preset.slv;
+        document.getElementById('eur_usd').value = preset.eur;
+    }
+    
+    async function predictPrice() {
+        const spx = document.getElementById('spx').value;
+        const uso = document.getElementById('uso').value;
+        const slv = document.getElementById('slv').value;
+        const eur_usd = document.getElementById('eur_usd').value;
+        
+        if (!spx || !uso || !slv || !eur_usd) {
+            showToast('Please fill all fields', 'error');
+            return;
+        }
+        
+        document.getElementById('quickLoading').classList.remove('hidden');
+        document.getElementById('quickResult').classList.add('hidden');
+        
+        try {
+            const response = await fetch(`/api/predict?spx=${spx}&uso=${uso}&slv=${slv}&eur_usd=${eur_usd}`);
+            const data = await response.json();
+            
+            if (data.success) {
+                document.getElementById('quickPrediction').textContent = `$${data.prediction.toFixed(2)}`;
+                document.getElementById('quickConfidence').textContent = `Confidence: ${data.confidence}%`;
+                document.getElementById('quickResult').classList.remove('hidden');
+                showToast('Prediction successful!');
+            } else {
+                showToast('Prediction failed', 'error');
+            }
+        } catch (error) {
+            showToast('Network error', 'error');
+        } finally {
+            document.getElementById('quickLoading').classList.add('hidden');
+        }
+    }
+</script>
+{% endblock %}

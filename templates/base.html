@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Gold Price Predictor{% endblock %}</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            900: '#0a0a0f',
+                            800: '#12121a',
+                            700: '#1a1a25',
+                            600: '#252532',
+                            500: '#32324a',
+                        },
+                        neon: {
+                            purple: '#a855f7',
+                            blue: '#3b82f6',
+                            cyan: '#06b6d4',
+                            gold: '#fbbf24',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 5px #a855f7, 0 0 10px #a855f7' },
+                            '100%': { boxShadow: '0 0 20px #a855f7, 0 0 30px #a855f7' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        * {
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a25 50%, #0f0f18 100%);
+            min-height: 100vh;
+            color: #e2e8f0;
+        }
+        
+        /* Dark glass card with 3D effect */
+        .glass-card {
+            background: rgba(26, 26, 37, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 60px rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15),
+                0 0 80px rgba(168, 85, 247, 0.2);
+        }
+        
+        /* Neon glow effect */
+        .neon-glow {
+            box-shadow: 0 0 10px #a855f7, 0 0 20px #a855f7, 0 0 30px #a855f7;
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 10px #a855f7, 0 0 20px #a855f7;
+        }
+        
+        /* Navigation */
+        .nav-link {
+            position: relative;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            color: #94a3b8;
+        }
+        
+        .nav-link.active {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
+            color: white;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+        
+        .nav-link:not(.active):hover {
+            background: rgba(168, 85, 247, 0.2);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
+            transition: all 0.3s ease;
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.5);
+        }
+        
+        /* Input fields */
+        .input-field {
+            border: 2px solid rgba(168, 85, 247, 0.3);
+            border-radius: 12px;
+            padding: 12px 16px;
+            width: 100%;
+            transition: all 0.3s ease;
+            background: rgba(26, 26, 37, 0.8);
+            color: #e2e8f0;
+        }
+        
+        .input-field:focus {
+            border-color: #a855f7;
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+            outline: none;
+        }
+        
+        .input-field::placeholder {
+            color: #64748b;
+        }
+        
+        /* Stats cards */
+        .stat-card {
+            background: linear-gradient(135deg, rgba(26, 26, 37, 0.9) 0%, rgba(37, 37, 50, 0.9) 100%);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+        
+        .stat-card:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+        }
+        
+        /* Floating animation */
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Loading spinner */
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(168, 85, 247, 0.3);
+            border-top: 3px solid #a855f7;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            background: rgba(26, 26, 37, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* 3D Card effect */
+        .card-3d {
+            perspective: 1000px;
+        }
+        
+        .card-3d-inner {
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+        
+        .card-3d:hover .card-3d-inner {
+            transform: rotateY(10deg) rotateX(10deg);
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1a1a25;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #a855f7, #3b82f6);
+            border-radius: 10px;
+        }
+        
+        /* Background particles */
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #a855f7;
+            border-radius: 50%;
+            animation: particle-float 15s infinite;
+        }
+        
+        @keyframes particle-float {
+            0%, 100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="p-6 relative">
+    <!-- Background Particles -->
+    <div class="bg-particles" id="particles"></div>
+    
+    <!-- Navigation -->
+    <nav class="glass-card max-w-7xl mx-auto mb-8 p-4">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-coins text-3xl text-neon-gold animate-float neon-text"></i>
+                <span class="text-2xl font-bold gradient-text">GoldPredictor</span>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+                <a href="/" class="nav-link {% if active_page == 'home' %}active{% endif %}">
+                    <i class="fas fa-home mr-2"></i>Home
+                </a>
+                <a href="/dashboard" class="nav-link {% if active_page == 'dashboard' %}active{% endif %}">
+                    <i class="fas fa-chart-pie mr-2"></i>Dashboard
+                </a>
+                <a href="/input" class="nav-link {% if active_page == 'input' %}active{% endif %}">
+                    <i class="fas fa-edit mr-2"></i>Input
+                </a>
+                <a href="/about" class="nav-link {% if active_page == 'about' %}active{% endif %}">
+                    <i class="fas fa-info-circle mr-2"></i>About
+                </a>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <span class="text-white bg-gradient-to-r from-purple-500 to-blue-500 px-4 py-2 rounded-full text-sm">
+                    <i class="fas fa-database mr-2"></i>v2.0
+                </span>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Toast Container -->
+    <div id="toastContainer"></div>
+    
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+        
+        // Generate particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                particle.style.opacity = Math.random() * 0.5 + 0.3;
+                container.appendChild(particle);
+            }
+        }
+        
+        createParticles();
+        
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            const icon = type === 'success' ? 'fa-check-circle text-green-400' : 'fa-exclamation-circle text-red-400';
+            toast.innerHTML = `
+                <div class="flex items-center text-gray-200">
+                    <i class="fas ${icon} mr-3"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
